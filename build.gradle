@@ -1,0 +1,75 @@
+buildscript {
+    ext.KotlinVersion = "1.6.0"
+    ext.ProguardVersion = "7.1.0"
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.guardsquare:proguard-gradle:$ProguardVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KotlinVersion"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$KotlinVersion"
+        classpath 'gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0'
+    }
+}
+
+import proguard.gradle.ProGuardTask
+
+apply plugin: "java"
+apply plugin: "kotlin"
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group 'net.orionlab'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+compileJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+def versions = [
+        KtorVersion: "1.6.4",
+        ScalaBinary: "2.13",
+        LogbackVersion: "1.2.7",
+        AkkaVersion: "2.6.16",
+        PostgreJdbcVersion: "42.3.1",
+        ProtobufVersion: "3.19.1",
+        JooqVersion: "3.15.4",
+        HikariVersion: "5.0.0"
+]
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KotlinVersion"
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1'
+    implementation("io.ktor:ktor-server-netty:${versions.KtorVersion}")
+    implementation("io.ktor:ktor-jackson:${versions.KtorVersion}")
+    implementation("io.ktor:ktor-websockets:${versions.KtorVersion}")
+    implementation "io.ktor:ktor-network-tls-certificates:${versions.KtorVersion}"
+    implementation("ch.qos.logback:logback-classic:${versions.LogbackVersion}")
+
+    implementation "com.google.protobuf:protobuf-java:${versions.ProtobufVersion}"
+
+    implementation "org.postgresql:postgresql:${versions.PostgreJdbcVersion}"
+    implementation "org.jooq:jooq:${versions.JooqVersion}"
+    implementation "org.jooq:jooq-meta:${versions.JooqVersion}"
+    implementation "com.zaxxer:HikariCP:${versions.HikariVersion}"
+
+    implementation "com.typesafe.akka:akka-actor_${versions.ScalaBinary}:${versions.AkkaVersion}"
+}
+
+sourceSets {
+    main.java.srcDirs = ["src/main/java",
+                         "src/generated/java",
+                         "src/main/kotlin"]
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "net.orionlab.sputniknchatserver.MainAppKt"
+    }
+}

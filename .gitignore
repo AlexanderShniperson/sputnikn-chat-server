@@ -1,0 +1,9 @@
+.gradle/
+build/
+src/generated/
+.idea
+!.idea/
+.idea/*
+!.idea/runConfigurations/
+media/*
+keystore.*
