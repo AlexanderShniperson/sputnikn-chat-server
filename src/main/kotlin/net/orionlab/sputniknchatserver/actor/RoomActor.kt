@@ -172,11 +172,11 @@ class RoomActor(
                     null,
                     UUID.fromString(msg.roomId),
                     member.userId,
+                    msg.clientEventId,
+                    msg.version.toShort(),
                     msg.content,
                     null,
                     null,
-                    msg.version.toShort(),
-                    msg.clientEventId
                 ),
                 msg.attachment
             )?.let { event ->
