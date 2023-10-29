@@ -1,5 +1,5 @@
 buildscript {
-    ext.KotlinVersion = "1.6.0"
+    ext.KotlinVersion = "1.7.20"
     ext.ProguardVersion = "7.1.0"
     repositories {
         gradlePluginPortal()
@@ -37,8 +37,8 @@ def versions = [
         ScalaBinary: "2.13",
         LogbackVersion: "1.2.7",
         AkkaVersion: "2.6.16",
-        PostgreJdbcVersion: "42.3.1",
-        ProtobufVersion: "3.19.1",
+        PostgreJdbcVersion: "42.6.0",
+        ProtobufVersion: "3.24.4",
         JooqVersion: "3.15.4",
         HikariVersion: "5.0.0"
 ]
